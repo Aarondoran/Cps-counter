@@ -4,7 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clicks per Second Counter</title>
-<link rel="stylesheet" href="styles.css">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.container {
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+}
+
+p {
+  color: #666;
+}
+
+span {
+  font-weight: bold;
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -13,6 +40,29 @@
   <p>Time elapsed: <span id="time">0</span> seconds</p>
   <p>Clicks per second: <span id="cps">0</span></p>
 </div>
-<script src="script.js"></script>
+<script>
+let clicks = 0;
+let startTime = new Date().getTime();
+
+function updateClicks() {
+  clicks++;
+  document.getElementById("cps").innerText = (clicks / ((new Date().getTime() - startTime) / 1000)).toFixed(2);
+}
+
+function redirectToGoogle() {
+  window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+}
+
+document.addEventListener("click", function() {
+  updateClicks();
+  if ((new Date().getTime() - startTime) / 1000 >= 10) {
+    redirectToGoogle();
+  }
+});
+
+setInterval(function() {
+  document.getElementById("time").innerText = Math.floor((new Date().getTime() - startTime) / 1000);
+}, 1000);
+</script>
 </body>
 </html>
